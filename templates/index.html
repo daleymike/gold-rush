@@ -9,12 +9,15 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="container-lg">
     <h1 class="text-warning">Gold Rush</h1>
-    <h2 class="text-muted">Obtain 200 Golds in less than 15 moves</h2>
+    <h2 class="text-light">Obtain 200 Golds in less than 15 moves</h2>
     <div class="container">
         <div class="header">
-            <p class="font-weight-bold">Current Gold: <span>{{session['gold']}}</span> </p>
-            <p class="font-weight-bold">Moves Remaining: <span>{{session['moves']}}</span></p>
+            <div class="status">
+            <p class="gameStatus">&#128176; Gold &#128176;: <span>{{session['gold']}}</span> </p>
+            <p class="gameStatus">Moves Remaining: <span>{{session['moves']}}</span></p>
+            </div>
             {% if session['moves'] < 1 and session['gold'] < 200%}
             <div class="reset border border-danger">
                 <h2 class="text-danger font-weight-bold">GAME OVER</h2>
@@ -39,6 +42,7 @@
         <div class="body">
             <div class="places">
                 <h3>Farm</h3> <br>
+                <p>&#128668;</p><br>
                 <p>(earns 10-20 golds)</p> <br>
                 {% if session['moves'] > 0%}
                 <form action="/process_gold" method="post">
@@ -49,6 +53,7 @@
             </div>
             <div class="places">
                 <h3>Cave</h3> <br>
+                <p>&#9935;</p> <br>
                 <p>(earns 5-10 golds)</p> <br>
                 {% if session['moves'] > 0%}
                 <form action="/process_gold" method="post">
@@ -59,6 +64,7 @@
             </div>
             <div class="places">
                 <h3>House</h3> <br>
+                <p>&#127968;</p> <br>
                 <p>(earns 2-5 golds)</p> <br>
                 {% if session['moves'] > 0%}
                 <form action="/process_gold" method="post">
@@ -69,6 +75,7 @@
             </div>
             <div class="places">
                 <h3>Casino</h3> <br>
+                <p>&#127920;</p><br>
                 <p>(earns/takes 0-50 golds)</p> <br>
                 {% if session['moves'] > 0%}
                 <form action="/process_gold" method="post">
@@ -81,15 +88,14 @@
 
         </div>
         <div class="footer">
-            <p>Activity Log:</p>
+            <p class="logText">Activity Log:</p>
             <div class="textbox">
                 {% for x in range(session['activity']|length, -1, -1)%}
                 <div>{{session['activity'][x]|safe}}</div> 
                 {% endfor %}
             </div>
-
-
         </div>
     </div>
+</div>
 </body>
 </html>
